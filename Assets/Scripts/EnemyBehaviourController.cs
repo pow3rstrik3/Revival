@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class EnemyBehaviourController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Material darkMaterial;
+    public float moveSpeed;
+    private GameObject targetObject = null;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (targetObject == null)
+        {
+            FindTargetObject();
+        }
+
+        transform.LookAt(targetObject.transform);
+        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+    }
+
+    private void FindTargetObject()
+    {
+        GameObject[] allObjects = FindObjectsOfType<GameObject>() as GameObject[];
+        foreach (GameObject obj in allObjects)
+        {
+
+            if ((obj.tag != "Enemy") && (obj.tag != "Player"))
+            {
+                if (obj.GetComponent<Renderer>() != null)
+                {
+                    if (obj.GetComponent<Renderer>().sharedMaterial != darkMaterial)
+                    {
+                        targetObject = obj;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
