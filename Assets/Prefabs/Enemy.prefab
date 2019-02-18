@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   darkMaterial: {fileID: 2100000, guid: 3d2fce8b936dfb04fb2331cc83f67ad1, type: 2}
+  moveSpeed: 5
+  distanceToTransform: 2

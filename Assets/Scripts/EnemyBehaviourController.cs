@@ -6,6 +6,7 @@ public class EnemyBehaviourController : MonoBehaviour
 {
     public Material darkMaterial;
     public float moveSpeed;
+    public float distanceToTransform;
     private GameObject targetObject = null;
 
     void Update()
@@ -14,9 +15,12 @@ public class EnemyBehaviourController : MonoBehaviour
         {
             FindTargetObject();
         }
-
-        transform.LookAt(targetObject.transform);
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        Debug.Log(Vector3.Distance(transform.position, targetObject.transform.position));
+        if (Vector3.Distance(transform.position, targetObject.transform.position) >= distanceToTransform)
+        {
+            transform.LookAt(targetObject.transform);
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        }
     }
 
     private void FindTargetObject()
