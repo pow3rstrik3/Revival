@@ -15,11 +15,21 @@ public class EnemyBehaviourController : MonoBehaviour
         {
             FindTargetObject();
         }
-        Debug.Log(Vector3.Distance(transform.position, targetObject.transform.position));
-        if (Vector3.Distance(transform.position, targetObject.transform.position) >= distanceToTransform)
+        else
         {
-            transform.LookAt(targetObject.transform);
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, targetObject.transform.position) >= distanceToTransform)
+            {
+                var heading = targetObject.transform.position - transform.position;
+                var distance = heading.magnitude;
+                var direction = heading / distance;
+                direction.y = 0;
+                transform.Translate(direction * moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                targetObject.GetComponent<Renderer>().material = darkMaterial;
+                targetObject = null;
+            }
         }
     }
 
