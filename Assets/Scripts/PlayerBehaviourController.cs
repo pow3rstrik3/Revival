@@ -9,7 +9,7 @@ public class PlayerBehaviourController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        newPosision = transform.position;
     }
 
     // Update is called once per frame
