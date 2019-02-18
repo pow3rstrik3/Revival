@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBehaviourController : MonoBehaviour
 {
     public Material darkMaterial;
+    public float moveSpeed;
     private GameObject targetObject = null;
 
     void Update()
@@ -13,7 +14,9 @@ public class EnemyBehaviourController : MonoBehaviour
         {
             FindTargetObject();
         }
-        Debug.Log("Target Object: " + targetObject);
+
+        transform.LookAt(targetObject.transform);
+        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
     }
 
     private void FindTargetObject()
@@ -21,10 +24,17 @@ public class EnemyBehaviourController : MonoBehaviour
         GameObject[] allObjects = FindObjectsOfType<GameObject>() as GameObject[];
         foreach (GameObject obj in allObjects)
         {
-            if (obj.GetComponent<MeshRenderer>().material != darkMaterial)
+
+            if ((obj.tag != "Enemy") && (obj.tag != "Player"))
             {
-                targetObject = gameObject;
-                break;
+                if (obj.GetComponent<Renderer>() != null)
+                {
+                    if (obj.GetComponent<Renderer>().sharedMaterial != darkMaterial)
+                    {
+                        targetObject = obj;
+                        break;
+                    }
+                }
             }
         }
     }
