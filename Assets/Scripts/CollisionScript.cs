@@ -24,7 +24,7 @@ namespace Assets.Scripts
 
         void OnCollisionEnter(Collision collision)
         { 
-            if (collision.gameObject.name == "Collectible")
+            if (collision.gameObject.tag == "Pickup")
             {
                 Destroy(collision.gameObject);
                 player.GetComponent<MeshRenderer>().material = color;
