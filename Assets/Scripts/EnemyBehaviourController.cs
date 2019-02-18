@@ -11,24 +11,27 @@ public class EnemyBehaviourController : MonoBehaviour
 
     void Update()
     {
-        if (targetObject == null)
+        if (!CheckIfGameFinished())
         {
-            FindTargetObject();
-        }
-        else
-        {
-            if (Vector3.Distance(transform.position, targetObject.transform.position) >= distanceToTransform)
+            if (targetObject == null)
             {
-                var heading = targetObject.transform.position - transform.position;
-                var distance = heading.magnitude;
-                var direction = heading / distance;
-                direction.y = 0;
-                transform.Translate(direction * moveSpeed * Time.deltaTime);
+                FindTargetObject();
             }
             else
             {
-                targetObject.GetComponent<Renderer>().material = darkMaterial;
-                targetObject = null;
+                if (Vector3.Distance(transform.position, targetObject.transform.position) >= distanceToTransform)
+                {
+                    var heading = targetObject.transform.position - transform.position;
+                    var distance = heading.magnitude;
+                    var direction = heading / distance;
+                    direction.y = 0;
+                    transform.Translate(direction * moveSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    targetObject.GetComponent<Renderer>().material = darkMaterial;
+                    targetObject = null;
+                }
             }
         }
     }
@@ -51,5 +54,21 @@ public class EnemyBehaviourController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool CheckIfGameFinished()
+    {
+        GameObject[] allObjects = FindObjectsOfType<GameObject>() as GameObject[];
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.GetComponent<Renderer>() != null)
+            {
+                if (obj.GetComponent<Renderer>().sharedMaterial == darkMaterial)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
