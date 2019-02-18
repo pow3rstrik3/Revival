@@ -280,6 +280,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1049942214, guid: cf8891b646cfd0642acad64303b8ad2d, type: 3}
+      propertyPath: fillColor
+      value: 
+      objectReference: {fileID: 2100000, guid: 7dd4eec67af6fc147a2003df702d695e, type: 2}
     - target: {fileID: 233382818920212384, guid: cf8891b646cfd0642acad64303b8ad2d,
         type: 3}
       propertyPath: m_Name
